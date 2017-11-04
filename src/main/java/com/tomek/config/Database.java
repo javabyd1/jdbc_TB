@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Database {
+public enum Database {
+
+    INSTANCE;
 
     private static Connection connection = null;
     private final static String ADRESS   = "jdbc:mysql://localhost";
