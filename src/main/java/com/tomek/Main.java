@@ -121,16 +121,14 @@ public class Main {
             //STEP 5: Extract data from result set
             while (rs.next()) {
                 //Retrieve by column name
-                int idAdresu = rs.getInt("id_adresu");
-                String ulica = rs.getString("ulica");
-                String miasto = rs.getString("miasto");
-                int numerMieszkania = rs.getInt("numer_mieszkania");
+                Address address = new Address();
+                address.setIdAdresu(rs.getInt("id_adresu"));
+                address.setUlica(rs.getString("ulica"));
+                address.setMiasto(rs.getString("miasto"));
+                address.setNumerMieszkania(rs.getInt("numer_mieszkania"));
 
                 //Display values
-                System.out.print("ID: " + idAdresu);
-                System.out.print(", ulica: " + ulica);
-                System.out.print(", miasto: " + miasto);
-                System.out.println(", numer_mieszkania: " + numerMieszkania);
+                System.out.println(address);
             }
             //STEP 6: Clean-up environment
             rs.close();
