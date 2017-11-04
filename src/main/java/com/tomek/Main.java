@@ -42,18 +42,20 @@ public class Main {
     private static void insertAddress() {
         Scanner scanner = new Scanner(System.in);
 
+        Address address = new Address();
+
         System.out.println("Podaj ID adresu");
-        int idAdresu = scanner.nextInt();
+        address.setIdAdresu(scanner.nextInt());
         scanner.nextLine();
 
         System.out.println("Podaj nazwe ulicy");
-        String ulica = scanner.nextLine();
+        address.setUlica(scanner.nextLine());
 
         System.out.println("Podaj nazwe miasta");
-        String miasto = scanner.nextLine();
+        address.setMiasto(scanner.nextLine());
 
         System.out.println("Podaj numer mieszkania");
-        int numerMieszkania = scanner.nextInt();
+        address.setNumerMieszkania(scanner.nextInt());
         scanner.nextLine();
 
 
@@ -70,7 +72,8 @@ public class Main {
             stmt = conn.createStatement();
 
             String sql = "INSERT INTO adresy (id_adresu, ulica, miasto, numer_mieszkania) " +
-                    "VALUES (" + idAdresu + ", '" + ulica + "', '" + miasto + "', " + numerMieszkania + ")";
+                    "VALUES (" + address.getIdAdresu() + ", '" + address.getUlica() + "', '" +
+                    address.getMiasto() + "', " + address.getNumerMieszkania() + ")";
 
             int result = stmt.executeUpdate(sql);
             System.out.println("Result: " + result);
