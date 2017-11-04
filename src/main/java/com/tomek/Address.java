@@ -20,7 +20,6 @@ public class Address {
         return "Id: " + idAdresu +
                 ", ulica: '" + ulica + '\'' +
                 ", miasto: '" + miasto + '\'' +
-                ", numerMieszkania: " + numerMieszkania +
-                '}';
+                ", numerMieszkania: " + numerMieszkania;
     }
 }
