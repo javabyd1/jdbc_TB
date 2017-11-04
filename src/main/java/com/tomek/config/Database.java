@@ -52,7 +52,6 @@ public enum Database {
             loadDriver();
             loadConnection();
         }
-        System.out.println(connection);
         return connection;
     }
 

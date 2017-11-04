@@ -16,6 +16,7 @@ public class Main {
             System.out.println("Wybierz operacje:");
             System.out.println("1: Lista adresow");
             System.out.println("2: Dodaj adres");
+            System.out.println("3: Pokaz adres");
             System.out.println("0: Wyjscie");
 
             Scanner scanner = new Scanner(System.in);
@@ -27,6 +28,9 @@ public class Main {
                     break;
                 case 2:
                     insertAddress();
+                    break;
+                case 3:
+                    printAddress();
                     break;
             }
         }
@@ -109,4 +113,45 @@ public class Main {
         }
         System.out.println("Goodbye!");
     }
+
+    private static void printAddress() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Podaj ID adresu");
+        int addressId = scanner.nextInt();
+        scanner.nextLine();
+
+
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            System.out.println("Connecting to database...");
+            conn = Database.getConnection();
+            //STEP 4: Execute a query
+            System.out.println("Creating statement...");
+            stmt = conn.createStatement();
+
+            String sql = "SELECT * FROM adresy WHERE id_adresu = " + addressId;
+            ResultSet rs = stmt.executeQuery(sql);
+            //STEP 5: Extract data from result set
+            while (rs.next()) {
+                //Retrieve by column name
+                Address address = new Address();
+                address.setIdAdresu(rs.getInt("id_adresu"));
+                address.setUlica(rs.getString("ulica"));
+                address.setMiasto(rs.getString("miasto"));
+                address.setNumerMieszkania(rs.getInt("numer_mieszkania"));
+
+                //Display values
+                System.out.println(address);
+            }
+            //STEP 6: Clean-up environment
+
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }
+        System.out.println("Goodbye!");
+    }
+
 }
