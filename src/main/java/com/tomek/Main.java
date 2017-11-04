@@ -1,4 +1,4 @@
-//STEP 1. Import required packages
+package com.tomek;//STEP 1. Import required packages
 
 import java.sql.Connection;
 import java.sql.DriverManager;
