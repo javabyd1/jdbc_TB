@@ -1,4 +1,7 @@
+package com.sda.jdbc;
 //STEP 1. Import required packages
+
+import com.sda.jdbc.config.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,11 +12,12 @@ import java.util.Scanner;
 
 public class Main {
     // JDBC driver name and database URL
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/j1b";
     // Database credentials
     static final String USER = "root";
-    static final String PASS = "12345";
+    static final String PASS = "";
+
 
     public static void main(String[] args) {
 
@@ -56,22 +60,17 @@ public class Main {
         int numerMieszkania = scanner.nextInt();
         scanner.nextLine();
 
-
         Connection conn = null;
         Statement stmt = null;
         try {
-            //STEP 2: Register JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
-            //STEP 3: Open a connection
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = Database.getConnection();
             //STEP 4: Execute a query
             System.out.println("Creating statement...");
             stmt = conn.createStatement();
 
             String sql = "INSERT INTO adresy (id_adresu, ulica, miasto, numer_mieszkania) " +
-                    "VALUES (" + idAdresu + ", '" + ulica + "', '" + miasto + "', " + numerMieszkania + ")";
-
+                    " VALUES (" + idAdresu + ", '" + ulica + "', '" + miasto + "', " + numerMieszkania + ")";
+            System.out.println(sql);
             int result = stmt.executeUpdate(sql);
             System.out.println("Result: " + result);
 
@@ -83,20 +82,7 @@ public class Main {
         } catch (Exception e) {
             //Handle errors for Class.forName
             e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException se2) {
-            }// nothing we can do
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }//end finally try
-        }//end try
+        }
         System.out.println("Goodbye!");
     }
 
@@ -104,11 +90,8 @@ public class Main {
         Connection conn = null;
         Statement stmt = null;
         try {
-            //STEP 2: Register JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
-            //STEP 3: Open a connection
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            conn = Database.getConnection();
             //STEP 4: Execute a query
             System.out.println("Creating statement...");
             stmt = conn.createStatement();
@@ -130,29 +113,15 @@ public class Main {
                 System.out.println(", numer_mieszkania: " + numerMieszkania);
             }
             //STEP 6: Clean-up environment
-            rs.close();
-            stmt.close();
-            conn.close();
+
+
         } catch (SQLException se) {
             //Handle errors for JDBC
             se.printStackTrace();
         } catch (Exception e) {
             //Handle errors for Class.forName
             e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException se2) {
-            }// nothing we can do
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }//end finally try
-        }//end try
+        }
         System.out.println("Goodbye!");
     }
 }
