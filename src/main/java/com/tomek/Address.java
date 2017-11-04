@@ -14,4 +14,13 @@ public class Address {
     String ulica;
     String miasto;
     int numerMieszkania;
+
+    @Override
+    public String toString() {
+        return "Id: " + idAdresu +
+                ", ulica: '" + ulica + '\'' +
+                ", miasto: '" + miasto + '\'' +
+                ", numerMieszkania: " + numerMieszkania +
+                '}';
+    }
 }
